@@ -10,17 +10,13 @@ import { Item } from './item/item.entity';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
 
-    TypeOrmModule.forRootAsync({
-      useFactory: () => ({
-        type: 'postgres',
-        host: process.env.DB_HOST,
-        port: parseInt(process.env.DB_PORT ?? '5432', 10),
-        username: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_NAME,
-        entities: [User, Item],
-        synchronize: true, // ❗ dev only, disable in production
-      }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+      autoLoadEntities: true,
+      synchronize: true, // dev only
+      entities: [User, Item],
     }),
 
     AuthModule,
