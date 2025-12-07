@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
@@ -7,6 +11,10 @@ import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
+/**
+ * Authentication Service
+ * Handles user registration and login logic
+ */
 @Injectable()
 export class AuthService {
   constructor(
@@ -19,7 +27,6 @@ export class AuthService {
     if (exists) throw new BadRequestException('Email already taken');
 
     const hash = await bcrypt.hash(dto.password, 10);
-
     const user = this.repo.create({ email: dto.email, passwordHash: hash });
     await this.repo.save(user);
 

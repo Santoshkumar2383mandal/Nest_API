@@ -1,0 +1,50 @@
+### Test Nest.js API
+
+### 1. Register User
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "password": "password123"
+}
+
+### 2. Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "sano@gmail.com",
+    "password": "123456"
+}
+
+### 3. Create Item (Replace TOKEN with your access_token)
+POST http://localhost:3000/items
+Authorization: Bearer TOKEN
+Content-Type: application/json
+
+{
+    "title": "My First Item",
+    "description": "This is a test item"
+}
+
+### 4. Get All Items
+GET http://localhost:3000/items
+Authorization: Bearer TOKEN
+
+### 5. Get Single Item (Replace :id with actual ID like 1)
+GET http://localhost:3000/items/1
+Authorization: Bearer TOKEN
+
+### 6. Update Item
+PATCH http://localhost:3000/items/1
+Authorization: Bearer TOKEN
+Content-Type: application/json
+
+{
+    "title": "Updated Title"
+}
+
+### 7. Delete Item
+DELETE http://localhost:3000/items/1
+Authorization: Bearer TOKEN

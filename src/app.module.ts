@@ -5,7 +5,12 @@ import { AuthModule } from './auth/auth.module';
 import { ItemModule } from './item/item.module';
 import { User } from './auth/user.entity';
 import { Item } from './item/item.entity';
+import { AppController } from './app.controller';
 
+/**
+ * App Module
+ * Root module - configures database and imports feature modules
+ */
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -15,12 +20,13 @@ import { Item } from './item/item.entity';
       url: process.env.DATABASE_URL,
       ssl: { rejectUnauthorized: false },
       autoLoadEntities: true,
-      synchronize: true, // dev only
+      synchronize: true, // WARNING: disable in production!
       entities: [User, Item],
     }),
 
     AuthModule,
     ItemModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
